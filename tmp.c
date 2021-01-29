@@ -6,12 +6,13 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:02:40 by skern             #+#    #+#             */
-/*   Updated: 2021/01/29 19:43:25 by skern            ###   ########.fr       */
+/*   Updated: 2021/01/30 00:52:29 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdio.h>
+#include "object3d.h"
 
 typedef struct  s_data {
     void        *img;

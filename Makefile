@@ -6,7 +6,7 @@
 #    By: skern <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 17:40:42 by skern             #+#    #+#              #
-#    Updated: 2021/01/20 20:20:04 by skern            ###   ########.fr        #
+#    Updated: 2021/01/30 00:54:30 by skern            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,12 @@ CC			= gcc
 			$(CC) -Wall -Wextra -Werror -Imlx -c $< -o ${<:.c=.o}
 
 ${NAME}:	$(OBJS)
-			$(CC) -lmlx -framework OpenGL -framework AppKit ${OBJS} 
+			$(CC) -lmlx -framework OpenGL -framework AppKit ${OBJS} -o ${NAME}
 
 all:		${NAME}
+
+clean:		
+			rm ${OBJS}
+
+fclean:		clean
+			rm ${NAME}
