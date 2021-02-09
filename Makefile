@@ -6,20 +6,22 @@
 #    By: skern <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 17:40:42 by skern             #+#    #+#              #
-#    Updated: 2021/01/30 00:54:30 by skern            ###   ########.fr        #
+#    Updated: 2021/02/09 15:13:14 by skern            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= miniRT
 
-SRCS		= tmp.c
+SRCS		= tmp.c object3d/sphere.c t_3d.c
 
 OBJS		= ${SRCS:.c=.o}
 
 CC			= gcc
 
+CFLAGS		= -Wall -Wextra -Werror
+
 %.o:		%.c 
-			$(CC) -Wall -Wextra -Werror -Imlx -c $< -o ${<:.c=.o}
+			$(CC) -Imlx -Iobject3d -c $< -o ${<:.c=.o}
 
 ${NAME}:	$(OBJS)
 			$(CC) -lmlx -framework OpenGL -framework AppKit ${OBJS} -o ${NAME}
@@ -31,3 +33,5 @@ clean:
 
 fclean:		clean
 			rm ${NAME}
+
+re:			fclean all
