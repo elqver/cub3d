@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:39:09 by skern             #+#    #+#             */
-/*   Updated: 2021/02/09 16:19:52 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/10 14:30:56 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ float			t_3d_dot_product(t_3d a, t_3d b)
 	return (res);
 }
 
-t_3d			t_3d_corss_product(t_3d a, t_3d b)
+t_3d			t_3d_cross_product(t_3d a, t_3d b)
 {
 	t_3d	res;
 
@@ -49,4 +49,14 @@ t_3d			t_3d_corss_product(t_3d a, t_3d b)
 	res.y = a.x * b.z - a.z * b.x;
 	res.z = a.x * b.y - a.y * b.x;
 	return (res);
+}
+
+t_3d			t_3d_scalar_mul(t_3d a, float b)
+{
+	t_3d	res;
+
+	res.x = a.x * b;
+	res.y = a.y * b;
+	res.z = a.z * b;
+	
 }

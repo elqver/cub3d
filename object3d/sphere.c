@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 00:58:02 by skern             #+#    #+#             */
-/*   Updated: 2021/02/09 16:24:46 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/10 15:18:02 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	get_sphere_intersect(const t_sphere_data *data,
 	D = b * b - 4 * a * c;
 	if (D < 0)
 		return (0);
-	distance = (-b - D) / (2 * a);
+	distance = (-b - sqrt(D)) / (2 * a);
 	intersection_point->x = ray_start_point.x + distance * ray_direction.x;
 	intersection_point->y = ray_start_point.y + distance * ray_direction.y;
 	intersection_point->z = ray_start_point.z + distance * ray_direction.z;
@@ -52,7 +52,7 @@ static int	get_sphere_color(t_sphere_data *data, t_3d intersection_point)
 {
 	(void )intersection_point;
 	return (data->color);
-}	
+}
 
 t_object3d	*new_sphere(t_3d center, float radius, int color)
 {
@@ -68,7 +68,7 @@ t_object3d	*new_sphere(t_3d center, float radius, int color)
 	data->center = center;
 	data->radius = radius;
 	data->color = color;
-	sphere->data = data;	
+	sphere->data = data;
 	sphere->intersect = get_sphere_intersect;
 	sphere->get_color = get_sphere_color;
 
