@@ -6,12 +6,12 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:49:01 by skern             #+#    #+#             */
-/*   Updated: 2021/02/10 16:57:02 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/13 16:50:49 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera.h"
-#include "t_quat.h"
+#include "quaternion.h"
 
 t_camera		create_camera_FOV(float FOV)
 {
@@ -23,9 +23,9 @@ t_camera		create_camera_FOV(float FOV)
 	zero_vector.y = 0;
 	zero_vector.z = 0;
 	zero_quaternion = t_quat_t_3d(zero_vector);
-	res.base_view_direction = zero_vector;
 	res.displacement = zero_vector;
 	res.rotation = zero_quaternion;
+	res.rotation.a = 1;
 	res.FOV = FOV;
 	return (res);
 }

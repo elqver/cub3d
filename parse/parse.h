@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.h                                           :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 11:24:43 by skern             #+#    #+#             */
-/*   Updated: 2021/02/13 14:48:12 by skern            ###   ########.fr       */
+/*   Created: 2021/02/13 14:52:40 by skern             #+#    #+#             */
+/*   Updated: 2021/02/13 16:04:06 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "t_3d.h"
-#include "quaternion.h"
+#ifndef PARSE_H
+# define PARSE_H
 
-typedef struct	s_camera
+# include "../camera.h"
+# include "../object3d/object3d.h"
+# include <stdio.h>
+# include <stdlib.h>
+
+int	parse_rt_file(char *rt_file, t_camera *camera, 
 {
-	t_3d	displacement;
-	t_quat	rotation;
-	float	FOV;
-}				t_camera;
+	int		fd;
+	char	*line;
 
-void			roll_camera(t_camera *camera, float angle);
-int				pitch_camera(t_camera *camera, float angle);
-int				yaw_camera(t_camera *camera, float angle);
-t_camera		create_camera_FOV(float FOV);
-t_camera		create_camera();
+	if (fd = open(rt_file, O_RDONLY) < 0)
+		return (0);
+	while (get_next_line(fd, &line))
+	{
+		
+	}
+	
+}
+
+#endif

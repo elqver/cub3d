@@ -6,11 +6,12 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 12:09:45 by skern             #+#    #+#             */
-/*   Updated: 2021/02/10 15:41:13 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/10 17:02:02 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "t_3d.h"
+#include "quaternion.h"
 #include <math.h>
 
 t_quat			t_quat_4f(float a, float x, float y, float z)

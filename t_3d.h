@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 00:51:13 by skern             #+#    #+#             */
-/*   Updated: 2021/02/10 13:09:42 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/13 16:33:19 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ t_3d			t_3d_sum(t_3d a, t_3d b);
 float			t_3d_dot_product(t_3d a, t_3d b);
 t_3d			t_3d_corss_product(t_3d a, t_3d b);
 t_3d			t_3d_scalar_mul(t_3d a, float b);
+float			t_3d_modul(t_3d a);
+t_3d			t_3d_f(float a, float b, float c);
 
 #endif

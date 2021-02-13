@@ -6,11 +6,30 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:39:09 by skern             #+#    #+#             */
-/*   Updated: 2021/02/10 14:30:56 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/13 16:34:59 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "t_3d.h"
+#include <math.h>
+
+t_3d			t_3d_f(float a, float b, float c)
+{
+	t_3d	res;
+
+	res.x = a;
+	res.y = b;
+	res.z = c;
+	return (res);
+}
+
+float			t_3d_modul(t_3d a)
+{
+	float	res;
+
+	res = sqrt(pow(a.x, 2) + pow(a.y, 2) + pow(a.z, 2));
+	return (res);
+}
 
 
 t_3d			t_3d_difference(t_3d a, t_3d b)
@@ -58,5 +77,4 @@ t_3d			t_3d_scalar_mul(t_3d a, float b)
 	res.x = a.x * b;
 	res.y = a.y * b;
 	res.z = a.z * b;
-	
 }

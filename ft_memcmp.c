@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.h                                           :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 11:24:43 by skern             #+#    #+#             */
-/*   Updated: 2021/02/13 14:48:12 by skern            ###   ########.fr       */
+/*   Created: 2020/10/28 23:09:55 by skern             #+#    #+#             */
+/*   Updated: 2021/02/13 14:44:30 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "t_3d.h"
-#include "quaternion.h"
+#include <stdio.h>
 
-typedef struct	s_camera
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_3d	displacement;
-	t_quat	rotation;
-	float	FOV;
-}				t_camera;
+	unsigned const char	*ps1;
+	unsigned const char	*ps2;
+	size_t				i;
 
-void			roll_camera(t_camera *camera, float angle);
-int				pitch_camera(t_camera *camera, float angle);
-int				yaw_camera(t_camera *camera, float angle);
-t_camera		create_camera_FOV(float FOV);
-t_camera		create_camera();
+	ps1 = s1;
+	ps2 = s2;
+	i = 0;
+	if (!n)
+		return (0);
+	while (i < n)
+	{
+		if (ps1[i] != ps2[i])
+			return (ps1[i] - ps2[i]);
+		i++;
+	}
+	return (0);
+}

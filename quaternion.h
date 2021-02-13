@@ -6,11 +6,11 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:56:14 by skern             #+#    #+#             */
-/*   Updated: 2021/02/10 15:50:18 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/13 14:12:53 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef QUATERNINON_H
+#ifndef QUATERNION_H
 # define QUATERNION_H
 
 # include "t_3d.h"
