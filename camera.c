@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:49:01 by skern             #+#    #+#             */
-/*   Updated: 2021/02/13 16:50:49 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/17 19:26:12 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_camera		create_camera_FOV(float FOV)
 	zero_quaternion = t_quat_t_3d(zero_vector);
 	res.displacement = zero_vector;
 	res.rotation = zero_quaternion;
-	res.rotation.a = 1;
+	res.rotation.x = 1;
+	res.rotation.a = 0.001;
 	res.FOV = FOV;
 	return (res);
 }
@@ -33,30 +34,40 @@ t_camera		create_camera_FOV(float FOV)
 static void		rotate_camera(t_camera *camera, float angle, t_3d base_vector)
 {
 	t_quat	upd_quat;
-	float	cosa;
-	float	sina;
 
-	cosa = cos(angle / 2);
-	sina = sin(angle / 2);
-	upd_quat = t_quat_t_3d(base_vector);
-	upd_quat = t_quat_rotate(camera->rotation, upd_quat);
-	upd_quat.a = cosa;
-	upd_quat.x = upd_quat.x / sina;
-	upd_quat.y = upd_quat.y / sina;
-	upd_quat.z = upd_quat.z / sina;
-	camera->rotation = t_quat_product(upd_quat, camera->rotation);
-
+	upd_quat = t_quat_set_rotation(angle, base_vector);
+	camera->rotation = t_quat_compose_rotation(camera->rotation, upd_quat);
 }
 
 void			roll_camera(t_camera *camera, float	angle)
 {
 	t_3d	base_vector;
 
-	base_vector.x = 1;
+	base_vector.x = 0;
+	base_vector.y = 0;
+	base_vector.z = 1;
+
+	rotate_camera(camera, angle, base_vector);
+}
+
+int				pitch_camera(t_camera *camera, float angle)
+{
+	t_3d	base_vector;
+
+	base_vector.x = -1;
 	base_vector.y = 0;
 	base_vector.z = 0;
 
 	rotate_camera(camera, angle, base_vector);
 }
 
+int				yaw_camera(t_camera *camera, float angle)
+{
+	t_3d	base_vector;
 
+	base_vector.x = 0;
+	base_vector.y = -1;
+	base_vector.z = 0;
+
+	rotate_camera(camera, angle, base_vector);
+}

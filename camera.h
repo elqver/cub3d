@@ -6,12 +6,13 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:24:43 by skern             #+#    #+#             */
-/*   Updated: 2021/02/13 14:48:12 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/17 18:52:24 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "t_3d.h"
 #include "quaternion.h"
+#include <math.h>
 
 typedef struct	s_camera
 {

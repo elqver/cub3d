@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 12:09:45 by skern             #+#    #+#             */
-/*   Updated: 2021/02/10 17:02:02 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/17 15:45:21 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,19 @@ t_quat			t_quat_unit(t_quat a)
 	float	mag;
 
 	mag = t_quat_magnitude(a);
-	return (t_quat_4f(a.a, a.x/mag, a.y/mag, a.z/mag));
+	return (t_quat_4f(a.a/mag, a.x/mag, a.y/mag, a.z/mag));
+}
+
+t_quat			t_quat_set_rotation(float angle, t_3d axis)
+{
+	t_quat	res;
+
+	res = t_quat_unit(t_quat_4f(0, axis.x, axis.y, axis.z));
+	res = t_quat_4f(cos(angle / 2),
+					sin(angle / 2) * res.x,
+					sin(angle / 2) * res.y,
+					sin(angle / 2) * res.z);
+	return (res);
 }
 
 t_quat			t_quat_product(t_quat a, t_quat b)
@@ -76,17 +88,13 @@ t_quat			t_quat_product(t_quat a, t_quat b)
 	return (res);
 }
 
-t_quat			t_quat_rotate(t_quat rotation, t_quat target)
+t_quat			t_quat_compose_rotation(t_quat first, t_quat second)
 {
-	return (t_quat_product(t_quat_product(rotation, target), t_quat_conjugation(rotation)));
+	return (t_quat_product(second, first));
 }
 
-
-
-
-
-
-
-
-
+t_quat			t_quat_rotate(t_quat rotation, t_3d target)
+{
+	return (t_quat_product(t_quat_product(rotation, t_quat_t_3d(target)), t_quat_conjugation(rotation)));
+}
 
