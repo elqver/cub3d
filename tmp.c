@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:02:40 by skern             #+#    #+#             */
-/*   Updated: 2021/02/17 19:37:15 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/20 17:13:33 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,52 +92,89 @@ int				draw_scene(t_camera camera, t_object3d_list *obj_list, t_data *img)
 		i = 0;
 		j++;
 	}
-
 	return (1);
+}
+
+typedef struct	s_draw
+{
+	t_camera 		*camera;
+	t_object3d_list *obj_list;
+	t_data			*img;
+	void			*mlx;
+	void			*mlx_win;
+}				t_draw;
+
+
+int				bind_camera_movements(int keycode, t_draw *jopa)
+{
+	printf("/t/tkeycode is %d\n", keycode);
+
+
+	if (keycode == 13)
+		move_camera_forward(jopa->camera, 10);
+	else if (keycode == 1)
+		move_camera_backward(jopa->camera, 10);
+	else if (keycode == 2)
+		move_camera_right(jopa->camera, 10);
+	else if (keycode == 0)
+		move_camera_left(jopa->camera, 10);
+	else if (keycode == 49)
+		move_camera_up(jopa->camera, 10);
+	else if (keycode == 257)
+		move_camera_down(jopa->camera, 10);
+	else if (keycode == 12)
+		roll_camera(jopa->camera, -0.2);
+	else if (keycode == 14)
+		roll_camera(jopa->camera, 0.2);
+	else if (keycode == 15)
+		pitch_camera(jopa->camera, 0.2);
+	else if (keycode == 3)
+		pitch_camera(jopa->camera, -0.2);
+	else if (keycode == 6)
+		yaw_camera(jopa->camera, -0.2);
+	else if (keycode == 8)
+		yaw_camera(jopa->camera, 0.2);
+	else
+		return(0);
+
+	draw_scene(*(jopa->camera), jopa->obj_list, jopa->img);
+	mlx_put_image_to_window(jopa->mlx, jopa->mlx_win, jopa->img->img, 0, 0);
+
+	return(1);
+}
+
+void			set_up_scene()
+{
+	add_obj_list(new_sphere(t_3d_f(-40, 0, -90), 15, 255 * 255 * 255));
+	add_obj_list(new_sphere(t_3d_f(-20, 0, -90), 20, 250 * 255 * 255 + 100 * 255 + 100));
+	add_light_list(new_light(t_3d_f(-25, 30, -45), 0.5, 0xffffffff));
 }
 
 int             main(void)
 {
     void    		*mlx;
     void    		*mlx_win;
-	t_object3d_list	*obj_list;
     t_data  		img;
 
-	t_quat a;
-	t_quat b;
-	t_quat c;
-
-	printf("I AM HERE\n");
-	a = t_quat_4f(0, 0, 0, 0);
-	b = t_quat_4f(0.4, sqrt(1/3), sqrt(1/3), sqrt(1/3));
-	c = t_quat_4f(1, 0, 0, 0);
-
-	t_quat d = t_quat_compose_rotation(a, b);
-	printf("%f, %f, %f, %f\n", d.a, d.x, d.y, d.z);
-	d = t_quat_compose_rotation(c, b);
-	printf("%f, %f, %f, %f\n", d.a, d.x, d.y, d.z);
-
-    mlx = mlx_init();
+	mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Hello world!");
     img.img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
                                  &img.endian);
 
+	set_up_scene();
 	t_camera camera = create_camera_FOV(M_PI / 3);
-	obj_list = (t_object3d_list *)malloc(sizeof(t_object3d_list));
-	t_object3d *sphere = new_sphere(t_3d_f(-10, 0, 90), 15, 255 * 255 * 255);
-	obj_list->next = NULL;
-	obj_list->prev = NULL;
-	obj_list->obj = sphere;
-	sphere = new_sphere(t_3d_f(10, 0, 90), 20, 250 * 255 * 255 + 100 * 255 + 100);
-	add_obj_list(obj_list, sphere);
-
-	roll_camera(&camera, 0.3);
-	//pitch_camera(&camera, -0.3);
-	//yaw_camera(&camera, 0.3);
-
-	draw_scene(camera, obj_list, &img);
+	draw_scene(camera, g_o3d_list, &img);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+
+	t_draw jopa;
+	jopa.camera = &camera;
+	jopa.obj_list = g_o3d_list;
+	jopa.img = &img;
+	jopa.mlx = mlx;
+	jopa.mlx_win = mlx_win;
+
+	mlx_key_hook(mlx_win, bind_camera_movements, &jopa);
 
     mlx_loop(mlx);
 }

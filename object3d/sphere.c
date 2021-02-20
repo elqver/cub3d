@@ -6,12 +6,13 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 00:58:02 by skern             #+#    #+#             */
-/*   Updated: 2021/02/17 18:59:25 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/20 20:46:46 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "object3d.h"
+#include "light.h"
 #include "../t_3d.h"
 #include <math.h>
 #include <stdlib.h>
@@ -48,10 +49,35 @@ static int	get_sphere_intersect(const t_sphere_data *data,
 	return(1);
 }
 
-static int	get_sphere_color(t_sphere_data *data, t_3d intersection_point)
+static t_3d	base_sphere_normal(t_sphere_data *data, t_3d intersection_point)
 {
-	(void )intersection_point;
-	return (data->color);
+	return (t_3d_unit(t_3d_difference(intersection_point, data->center)));
+}
+
+static int	get_sphere_color(t_sphere_data *data, t_3d intersection_point, t_3d view_point)
+{
+	int		color;
+	t_3d	normal;
+
+	normal = base_sphere_normal(data, intersection_point);
+	if (t_3d_dot_product(normal, t_3d_difference(view_point, intersection_point)) < 0)
+		normal = t_3d_scalar_mul(normal, -1);
+
+	color = t_3d_scalar_mul(t_3d_g_ambient;
+	current_light_node = g_light_list;
+	while (current_light_node != NULL)
+	{
+		if (intersection_point visible from current_light)
+		{
+			color = color_t3d(t_3d_scalar_mul(
+											0.5 * t_3d_dot_product(normal, t_3d_difference(current_light_node->position, intersection_point)),
+
+
+		}
+		current_light_node = current_light_node->next;
+	}
+		
+	return (color);
 }
 
 t_object3d	*new_sphere(t_3d center, float radius, int color)

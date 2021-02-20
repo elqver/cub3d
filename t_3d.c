@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:39:09 by skern             #+#    #+#             */
-/*   Updated: 2021/02/13 16:34:59 by skern            ###   ########.fr       */
+/*   Updated: 2021/02/20 15:41:33 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ t_3d			t_3d_f(float a, float b, float c)
 	res.y = b;
 	res.z = c;
 	return (res);
+}
+
+t_3d			t_3d_unit(t_3d a)
+{
+	float mod;
+
+	mod = t_3d_modul(a);
+	if (mod != 0)
+		return (t_3d_f(a.x / mod, a.y / mod, a.z / mod));
+	return (a);
 }
 
 float			t_3d_modul(t_3d a)
@@ -77,4 +87,5 @@ t_3d			t_3d_scalar_mul(t_3d a, float b)
 	res.x = a.x * b;
 	res.y = a.y * b;
 	res.z = a.z * b;
+	return (res);
 }
