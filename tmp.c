@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:02:40 by skern             #+#    #+#             */
-/*   Updated: 2021/02/20 17:13:33 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/02 16:12:55 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <sphere.h>
 #include <math.h>
+#include "light.h"
 #include "camera.h"
 #include "object3d/object3d.h"
 
