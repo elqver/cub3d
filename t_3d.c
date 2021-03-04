@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:39:09 by skern             #+#    #+#             */
-/*   Updated: 2021/02/20 15:41:33 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/04 21:59:18 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,37 @@ t_3d			t_3d_scalar_mul(t_3d a, float b)
 	res.y = a.y * b;
 	res.z = a.z * b;
 	return (res);
+}
+
+t_3d			t_3d_scalar_div(t_3d a, float b)
+{
+	a.x = a.x / b;
+	a.y = a.y / b;
+	a.z = a.z / b;
+
+	return (a);
+}
+
+t_3d			t_3d_color(int color)
+{
+	t_3d	res;
+
+	res.x = color / 65536;
+	res.y = color % 65536 / 256;
+	res.z = color % 256;
+
+	return (res);
+}
+
+int				color_t_3d(t_3d a)
+{
+	return ((int)a.x * 65536 + (int)a.y * 256 + (int)a.z);
+}
+
+t_3d			t_3d_pair_mul(t_3d a, t_3d b)
+{
+	a.x = a.x * b.x;
+	a.y = a.y * b.y;
+	a.z = a.z * b.z;
+return (a);
 }

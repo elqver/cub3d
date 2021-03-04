@@ -6,13 +6,16 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:24:43 by skern             #+#    #+#             */
-/*   Updated: 2021/03/02 16:30:08 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/04 21:35:49 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "t_3d.h"
-#include "quaternion.h"
-#include <math.h>
+#ifndef CAMERA_H
+# define CAMERA_H 
+
+# include "t_3d.h"
+# include "quaternion.h"
+# include <math.h>
 
 typedef struct	s_camera
 {
@@ -33,4 +36,6 @@ void			pitch_camera(float angle);
 void			yaw_camera(float angle);
 t_camera		create_camera_FOV(float FOV);
 t_camera		create_camera();
+t_3d			set_normal_on_camera(t_3d base_normal, t_3d point_position);
 
+#endif

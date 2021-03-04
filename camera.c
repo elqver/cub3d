@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:49:01 by skern             #+#    #+#             */
-/*   Updated: 2021/03/02 16:32:31 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/04 21:09:18 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,11 @@ void			yaw_camera(float angle)
 	base_vector.z = 0;
 
 	rotate_camera(angle, base_vector);
+}
+
+t_3d			set_normal_on_camera(t_3d base_normal, t_3d point_position)
+{
+	if (t_3d_dot_product(base_normal, t_3d_difference(g_camera.displacement, point_position)) < 0)
+		return (t_3d_scalar_mul(base_normal, -1));
+	return (base_normal);
 }

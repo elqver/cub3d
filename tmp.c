@@ -6,10 +6,11 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:02:40 by skern             #+#    #+#             */
-/*   Updated: 2021/03/02 19:48:31 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/04 22:04:49 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h> //delete me later
 #include <mlx.h>
 #include <stdio.h>
 #include <sphere.h>
@@ -17,6 +18,7 @@
 #include "light.h"
 #include "camera.h"
 #include "object3d/object3d.h"
+#include "phong/phong.h"
 
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1280
@@ -84,6 +86,7 @@ int				draw_scene(t_data *img)
 	t_3d		ray;
 	int			i;
 	int			j;
+	int			color;
 	
 	j = -1;
 	while (++j < WINDOW_HEIGHT)
@@ -97,7 +100,17 @@ int				draw_scene(t_data *img)
 			ray = t_3d_t_quat(t_quat_rotate(g_camera.rotation, ray));
 			find_nearest(ray, &nearest_obj, &nearest_intersection_point);
 			if (nearest_obj != NULL)
-				my_mlx_pixel_put(img, i, j, nearest_obj->get_color(nearest_obj->data, nearest_intersection_point));
+			{
+				//Fong amplifier for every chanel should be used here for shadowing
+				color = nearest_obj->get_color(nearest_obj->data, nearest_intersection_point);
+				color = color_t_3d(t_3d_pair_mul(t_3d_color(color), 
+								   phong_light_amplifier(nearest_obj, 
+														  nearest_intersection_point
+														)
+								   				)
+								  );
+				my_mlx_pixel_put(img, i, j, (int)color);
+			}
 			else
 				my_mlx_pixel_put(img, i, j, 0);
 		}
@@ -107,9 +120,6 @@ int				draw_scene(t_data *img)
 
 int				bind_camera_movements(int keycode, t_data *img)
 {
-	printf("/t/tkeycode is %d\n", keycode);
-
-
 	if (keycode == 13)
 		move_camera_forward(10);
 	else if (keycode == 1)
@@ -145,10 +155,13 @@ int				bind_camera_movements(int keycode, t_data *img)
 
 void			set_up_scene()
 {
-	add_obj_list(new_sphere(t_3d_f(-40, 0, -90), 15, 255 * 255 * 255));
-	add_obj_list(new_sphere(t_3d_f(-20, 0, -90), 20, 250 * 255 * 255 + 100 * 255 + 100));
-	add_light_list(new_light(t_3d_f(-25, 30, -45), 0.5, 0xffffffff));
+	add_obj_list(new_sphere(t_3d_f(-40, 0, -90), 15, 255 * 65536));
+	add_obj_list(new_sphere(t_3d_f(-20, 0, -90), 20, 255 * 65536));
+	add_light_list(new_light(t_3d_f(-30, 30, -90), 1, 16777215));
 	g_camera = create_camera_FOV(2 * 3.1415 / 3); 
+	g_is_ambient_on = 1;
+	g_is_diffuse_on = 1;
+	g_ambient = 0.2;
 }
 
 int             main(void)
