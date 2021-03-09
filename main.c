@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:02:40 by skern             #+#    #+#             */
-/*   Updated: 2021/03/09 13:13:07 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/09 19:25:11 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "camera.h"
 #include "object3d/object3d.h"
 #include "phong/phong.h"
+#include "parse/check_rt.h"
 
 #define WINDOW_WIDTH 400
 #define WINDOW_HEIGHT 400
@@ -194,6 +195,11 @@ int             main(void)
     img.img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
                                  &img.endian);
+
+	if (check_rt_file("set_up.rt"))
+		printf("\nfile is ok\n");
+	else
+		printf("\nfile fucked up\n");
 
 	set_up_scene();
 	draw_scene(&img);

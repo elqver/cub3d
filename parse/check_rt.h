@@ -6,13 +6,15 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:59:24 by skern             #+#    #+#             */
-/*   Updated: 2021/03/09 17:08:32 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/09 18:12:53 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef CHECK_RT_H
 # define CHECK_RT_H
+
+# include <fcntl.h>
 
 # define RESOLUTION 1
 # define AMBIENT 2

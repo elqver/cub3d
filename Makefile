@@ -6,13 +6,13 @@
 #    By: skern <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 17:40:42 by skern             #+#    #+#              #
-#    Updated: 2021/03/04 21:11:11 by skern            ###   ########.fr        #
+#    Updated: 2021/03/09 18:46:36 by skern            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= miniRT
 
-SRCS		= tmp.c object3d/sphere.c light.c t_3d.c quaternion.c camera.c ft_memcmp.c object3d/object3d.c phong/phong.c
+SRCS		= main.c object3d/sphere.c light.c t_3d.c quaternion.c camera.c ft_memcmp.c object3d/object3d.c phong/phong.c parse/check_rt.c gnl/get_next_line.c gnl/get_next_line_utils.c
 
 OBJS		= ${SRCS:.c=.o}
 
