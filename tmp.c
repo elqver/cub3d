@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:02:40 by skern             #+#    #+#             */
-/*   Updated: 2021/03/04 22:04:49 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/09 13:13:07 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include "object3d/object3d.h"
 #include "phong/phong.h"
 
-#define WINDOW_WIDTH 1920
-#define WINDOW_HEIGHT 1280
+#define WINDOW_WIDTH 400
+#define WINDOW_HEIGHT 400
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n);
 
@@ -120,6 +120,7 @@ int				draw_scene(t_data *img)
 
 int				bind_camera_movements(int keycode, t_data *img)
 {
+	printf("current keycode is %d\n", keycode);
 	if (keycode == 13)
 		move_camera_forward(10);
 	else if (keycode == 1)
@@ -139,13 +140,18 @@ int				bind_camera_movements(int keycode, t_data *img)
 	else if (keycode == 15)
 		pitch_camera(0.2);
 	else if (keycode == 3)
-		pitch_camera(0.2);
+		pitch_camera(-0.2);
 	else if (keycode == 6)
 		yaw_camera(0.2);
 	else if (keycode == 8)
 		yaw_camera(-0.2);
+
+	else if (keycode == 34)
+		g_is_ambient_on = !g_is_ambient_on;
+	else if (keycode == 31)
+		g_is_diffuse_on = !g_is_diffuse_on;
 	else
-		return(0);
+		return (0);
 
 	draw_scene(img);
 	mlx_put_image_to_window(mlx, mlx_win, img->img, 0, 0);
@@ -155,13 +161,28 @@ int				bind_camera_movements(int keycode, t_data *img)
 
 void			set_up_scene()
 {
-	add_obj_list(new_sphere(t_3d_f(-40, 0, -90), 15, 255 * 65536));
-	add_obj_list(new_sphere(t_3d_f(-20, 0, -90), 20, 255 * 65536));
-	add_light_list(new_light(t_3d_f(-30, 30, -90), 1, 16777215));
+	/*
+	add_obj_list(new_sphere(t_3d_f(-40, 0, -90), 15, RED));
+	add_obj_list(new_sphere(t_3d_f(-20, 0, -90), 20, RED));
+	add_light_list(new_light(t_3d_f(-30, 30, -90), 1, WHITE));
+	*/
+
+	/*
+	add_obj_list(new_sphere(t_3d_f(-20, 0, -100), 3, RED));
+	add_obj_list(new_sphere(t_3d_f(20, 0, -100), 30, RED));
+	add_light_list(new_light(t_3d_f(-50, 0, -100), 1, WHITE));
+	*/
+
+	add_obj_list(new_sphere(t_3d_f(-20, 0, -100), 5, 255 * 256 * 256 + 122 * 256 + 122));
+	add_obj_list(new_sphere(t_3d_f(20, 0, -100), 30, WHITE));
+	add_light_list(new_light(t_3d_f(-50, 0, -92), 0.3, GREEN));
+	add_light_list(new_light(t_3d_f(-50, 0, -108), 0.3, BLUE));
+
+
 	g_camera = create_camera_FOV(2 * 3.1415 / 3); 
 	g_is_ambient_on = 1;
 	g_is_diffuse_on = 1;
-	g_ambient = 0.2;
+	g_ambient = 0.5;
 }
 
 int             main(void)

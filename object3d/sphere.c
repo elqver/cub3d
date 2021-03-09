@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 00:58:02 by skern             #+#    #+#             */
-/*   Updated: 2021/03/04 22:16:56 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/05 16:41:50 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ typedef struct	s_sphere_data
 	int		color;
 }				t_sphere_data;
 
+static float	min_pos_number_if_possible(float a, float b)
+{
+	if (a > 0)
+		if (a < b && b > 0 || b < 0)
+			return (a);
+	return (b);
+}
+
 static int	get_sphere_intersect(const t_sphere_data *data,
 									t_3d ray_start_point,
 									t_3d ray_direction,
@@ -34,8 +42,7 @@ static int	get_sphere_intersect(const t_sphere_data *data,
 	float	c;
 	float	D;
 	float	distance;
-	float	distance1;
-	float	distance2;
+
 	a = t_3d_dot_product(ray_direction, ray_direction);
 	b = 2 * (t_3d_dot_product(ray_direction, t_3d_difference(ray_start_point, data->center)));
 	c = t_3d_dot_product(t_3d_difference(ray_start_point, data->center),
@@ -45,14 +52,9 @@ static int	get_sphere_intersect(const t_sphere_data *data,
 	if (D < 0)
 		return (0);
 
-	distance1 = (-b - sqrt(D)) / (2 * a);
-	distance2 = (-b + sqrt(D)) / (2 * a);
-	if (distance1 > 0)
-		if (distance1 < distance2 && distance2 > 0)
-			distance = distance1;
-	if (distance2 > 0)
-		if (distance2 < distance1 && distance1 > 0)
-			distance = distance2;
+	distance = min_pos_number_if_possible((-b - sqrt(D)) / (2 * a), (-b + sqrt(D)) / (2 * a));
+	if (distance < 0)
+		return (0);
 
 	intersection_point->x = ray_start_point.x + distance * ray_direction.x;
 	intersection_point->y = ray_start_point.y + distance * ray_direction.y;

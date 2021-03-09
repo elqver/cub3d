@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 19:57:30 by skern             #+#    #+#             */
-/*   Updated: 2021/03/04 21:34:56 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/05 17:26:56 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #define LIGHT_H
 
 # include "t_3d.h"
+# define RED 16711680
+# define GREEN 65280
+# define BLUE 255
+# define WHITE 16777215
 
 typedef struct	s_light
 {

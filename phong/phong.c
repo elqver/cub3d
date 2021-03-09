@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 20:23:14 by skern             #+#    #+#             */
-/*   Updated: 2021/03/04 22:05:01 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/05 17:33:53 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_3d	get_diffuse_amplifier(const t_object3d *object, t_3d point_position)
 		{
 			scalar_diffuse_amplifier = t_3d_dot_product(normal, t_3d_unit(t_3d_difference(light->light.position,
 																						  point_position)));
+			if (scalar_diffuse_amplifier > 0)
 			diffuse_amplifier = t_3d_sum(diffuse_amplifier,
 										 t_3d_scalar_mul(t_3d_scalar_div(t_3d_color(light->light.color), 255),
 														 scalar_diffuse_amplifier
@@ -107,13 +108,9 @@ t_3d	phong_light_amplifier(const t_object3d *object, t_3d point_position)
 	
 	resulted_amplifier = t_3d_f(0, 0, 0);
 	if (g_is_ambient_on)
-	{
 		resulted_amplifier = t_3d_sum(resulted_amplifier, get_ambient_amplifier());
-	}
 	if (g_is_diffuse_on)
-	{
 		resulted_amplifier = t_3d_sum(resulted_amplifier, get_diffuse_amplifier(object, point_position));
-	}
 	if (g_is_specular_on)
 		;
 	return (compress_amplifier(resulted_amplifier));
