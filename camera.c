@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:49:01 by skern             #+#    #+#             */
-/*   Updated: 2021/03/04 21:09:18 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/13 19:46:17 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_camera		create_camera_FOV(float FOV)
 	zero_quaternion = t_quat_t_3d(t_3d_f(0, 0, 0));
 	res.displacement = t_3d_f(0, 0, 0);
 	res.rotation = zero_quaternion;
-	res.rotation.x = -1;
+	res.rotation.a = 1;
 	res.FOV = FOV;
 	return (res);
 }
@@ -36,12 +36,12 @@ static void		move_camera(t_3d base_direction, float distance)
 
 void			move_camera_forward(float distance)
 {
-	move_camera(t_3d_f(0, 0, 1), distance);
+	move_camera(t_3d_f(0, 0, -1), distance);
 }
 
 void			move_camera_backward(float distance)
 {
-	move_camera(t_3d_f(0, 0, -1), distance);
+	move_camera(t_3d_f(0, 0, 1), distance);
 }
 
 void			move_camera_left(float distance)
@@ -79,7 +79,7 @@ void			roll_camera(float	angle)
 
 	base_vector.x = 0;
 	base_vector.y = 0;
-	base_vector.z = 1;
+	base_vector.z = -1;
 
 	rotate_camera(angle, base_vector);
 }
@@ -88,7 +88,7 @@ void			pitch_camera(float angle)
 {
 	t_3d	base_vector;
 
-	base_vector.x = -1;
+	base_vector.x = 1;
 	base_vector.y = 0;
 	base_vector.z = 0;
 
@@ -100,7 +100,7 @@ void			yaw_camera(float angle)
 	t_3d	base_vector;
 
 	base_vector.x = 0;
-	base_vector.y = -1;
+	base_vector.y = 1;
 	base_vector.z = 0;
 
 	rotate_camera(angle, base_vector);

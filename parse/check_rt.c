@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:46:02 by skern             #+#    #+#             */
-/*   Updated: 2021/03/09 19:45:16 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/13 16:49:36 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	is_digit(char symb)
 
 int 		check_number(char **line)
 {
+	printf("check number from: %s\n", *line);
 	while (**line == ' ')
 		(*line)++;
 	if (**line == '-' || **line == '+')
@@ -46,6 +47,7 @@ int 		check_number(char **line)
 
 int 		check_three_numbers(char **line)
 {
+	printf("check three numbers from: %s\n", *line);
 	if (check_number(line))
 		if (**line == ',')
 		{
@@ -66,15 +68,21 @@ int 		check_three_numbers(char **line)
 
 int 		check_empty_end(char **line)
 {
-	while (**line == ' ')
+	printf("check empty end: %s\n", *line);
+	while (**line == ' ' || **line == '\n')
 		(*line)++;
-	if (**line != '\n')
+	if (**line != '\0')
+	{
+		printf("imposter char in the end of line with code: %d\n", **line);
 		return (0);
+	}
+	printf("end was found correctly\n");
 	return (1);
 }
 
 int			check_resolution(char **line)
 {
+	printf("check resulution: %s\n", *line);
 	static char first_time = 1;
 
 	if (!first_time)
@@ -89,6 +97,7 @@ int			check_resolution(char **line)
 
 int			check_ambient(char **line)
 {
+	printf("check ambient: %s\n", *line);
 	static char first_time = 1;
 
 	if (!first_time)
@@ -103,6 +112,7 @@ int			check_ambient(char **line)
 
 int			check_camera(char **line)
 {
+	printf("check camera: %s\n", *line);
 	if (check_three_numbers(line))
 		if (check_three_numbers(line))
 			if (check_number(line))
@@ -113,6 +123,7 @@ int			check_camera(char **line)
 
 int			check_light(char **line)
 {
+	printf("check light: %s\n", *line);
 	if (check_three_numbers(line))
 		if (check_number(line))
 			if (check_three_numbers(line))
@@ -123,6 +134,7 @@ int			check_light(char **line)
 
 int			check_sphere(char **line)
 {
+	printf("check sphere: %s\n", *line);
 	if (check_three_numbers(line))
 		if (check_number(line))
 			if (check_three_numbers(line))
@@ -133,16 +145,17 @@ int			check_sphere(char **line)
 
 int			check_plane(char **line)
 {
+	printf("check plane: %s\n", *line);
 	if (check_three_numbers(line))
 		if (check_three_numbers(line))
-			if (check_three_numbers(line))
-				if (check_empty_end(line))
-					return (1);
+			if (check_empty_end(line))
+				return (1);
 	return (0);
 }
 
 int			check_square(char **line)
 {
+	printf("check square: %s\n", *line);
 	if (check_three_numbers(line))
 		if (check_three_numbers(line))
 			if (check_number(line))
@@ -154,6 +167,7 @@ int			check_square(char **line)
 
 int			check_cylinder(char **line)
 {
+	printf("check cylinder: %s\n", *line);
 	if (check_three_numbers(line))
 		if (check_three_numbers(line))
 			if (check_number(line))
@@ -166,6 +180,7 @@ int			check_cylinder(char **line)
 
 int			check_triangle(char **line)
 {
+	printf("check triangle: %s\n", *line);
 	if (check_three_numbers(line))
 		if (check_three_numbers(line))
 			if (check_three_numbers(line))
@@ -180,7 +195,7 @@ int			get_type_identifier(char **line)
 	char first_char;
 	char second_char;
 	
-	first_char = *(*line++);
+	first_char = *((*line)++);
 	printf("\n FIRST CHAR IS %c\n", first_char);
 	if (first_char == 'R')
 		return (RESOLUTION);
@@ -190,7 +205,7 @@ int			get_type_identifier(char **line)
 		return (LIGHT);
 	else if (first_char == 's')
 	{
-		second_char = *(*line++);
+		second_char = *((*line)++);
 		if (second_char == 'p')
 			return (SPHERE);
 		if (second_char == 'q')
@@ -198,13 +213,13 @@ int			get_type_identifier(char **line)
 	}
 	else if (first_char == 'p')
 	{
-		second_char = *(*line++);
+		second_char = *((*line)++);
 		if (second_char == 'l')
 			return (PLANE);
 	}
 	else if (first_char == 'c')
 	{
-		second_char = *(*line++);
+		second_char = *((*line)++);
 		if (second_char == 'y')
 			return (CYLINDER);
 		if (second_char == ' ')
@@ -212,20 +227,24 @@ int			get_type_identifier(char **line)
 	}
 	else if (first_char == 't')
 	{
-		second_char = *(*line++);
+		second_char = *((*line)++);
 		if (second_char == 'r')
 			return (TRIANGLE);
 	}
 	return (0);
 }
 
-
 int	check_empty_line(char *line)
 {
+	printf("check if line is empty\n");
 	while (*line == ' ' || *line == '\n')
 		line++;
 	if (*line == '\0')
+	{
+		printf("line is empty\n");
 		return (1);
+	}
+	printf("line is not empty with symbol code: '%d'\n", *line);
 	return (0);
 }
 
@@ -269,7 +288,7 @@ int			check_rt_file(char *file_name)
 	
 	while (get_next_line(fd, &line))
 	{
-		printf("\nline checking \n");
+		printf("\nline checking: %s\n", line);
 		if (!check_line(line))
 			return (0);
 		printf("\nline is ok\n");
