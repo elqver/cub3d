@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 00:51:13 by skern             #+#    #+#             */
-/*   Updated: 2021/03/04 21:30:41 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/17 19:19:01 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct	s_3d
 t_3d			t_3d_difference(t_3d a, t_3d b);
 t_3d			t_3d_sum(t_3d a, t_3d b);
 float			t_3d_dot_product(t_3d a, t_3d b);
-t_3d			t_3d_corss_product(t_3d a, t_3d b);
+t_3d			t_3d_cross_product(t_3d a, t_3d b);
 t_3d			t_3d_scalar_mul(t_3d a, float b);
 t_3d			t_3d_scalar_div(t_3d a, float b);
 float			t_3d_modul(t_3d a);

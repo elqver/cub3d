@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   cylinder.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 19:43:10 by skern             #+#    #+#             */
-/*   Updated: 2021/03/17 11:19:25 by skern            ###   ########.fr       */
+/*   Created: 2021/03/17 11:16:54 by skern             #+#    #+#             */
+/*   Updated: 2021/03/17 19:07:23 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef CYLINDER_H
+# define CYLINDER_H
 
 # include "object3d.h"
 
-typedef struct	s_sphere_data
+typedef struct  s_cylinder
 {
-	t_3d	center;
-	float	radius;	
+    t_3d	center;
+    t_3d	orientation;
+    float	diameter;
+    float 	height;
 	int		color;
-}				t_sphere_data;
+}               t_cylinder_data;
 
-t_object3d	*new_sphere(t_3d center, float radius, int color);
+t_object3d	*new_cylinder(t_3d center, t_3d orientation, float diameter, float height, int color);
 
 #endif

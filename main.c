@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/20 17:02:40 by skern             #+#    #+#             */
-/*   Updated: 2021/03/13 21:50:49 by skern            ###   ########.fr       */
+/*   Created: 2021/03/17 19:04:13 by skern             #+#    #+#             */
+/*   Updated: 2021/03/17 21:06:39 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 #include "light.h"
 #include "camera.h"
 #include "object3d/object3d.h"
+#include "object3d/sphere.h"
+#include "object3d/cylinder.h"
+#include "object3d/triangle.h"
+#include "object3d/plane.h"
 #include "phong/phong.h"
 #include "parse/check_rt.h"
 
@@ -177,13 +181,34 @@ void			set_up_scene()
 	add_light_list(new_light(t_3d_f(-50, 0, -100), 1, WHITE));
 	*/
 
-	add_obj_list(new_sphere(t_3d_f(-20, 30, -100), 5, 255 * 256 * 256 + 122 * 256 + 122));
-	add_obj_list(new_sphere(t_3d_f(20, 30, -100), 30, WHITE));
-	add_obj_list(new_cylinder(t_3d_f(0, 30, -100), t_3d_f(0, 1, 0), 10, 100, RED));
-	add_light_list(new_light(t_3d_f(-50, 100, -92), 0.3, GREEN));
-	add_light_list(new_light(t_3d_f(-50, 100, -108), 0.3, BLUE));
+	/*
+	add_obj_list(new_sphere(t_3d_f(-20, 30, -100), 30, 255 * 256 * 256 + 122 * 256 + 122));
+	add_obj_list(new_cylinder(t_3d_f(-20, 30, -100), t_3d_f(0, 0, 1), 10., 100., RED));
+	add_obj_list(new_cylinder(t_3d_f(-20, 30, -100), t_3d_f(0, 1, 0), 10., 100., WHITE));
+	add_light_list(new_light(t_3d_f(-50, 100, -200), 0.3, GREEN));
+	add_light_list(new_light(t_3d_f(-50, 100, -200), 0.3, BLUE));
+	*/
+	
+	/*
+	add_obj_list(new_sphere(t_3d_f(0, 0, -200), 50, GREEN));
+	add_obj_list(new_cylinder(t_3d_f(0, 0, 0), t_3d_f(0, 1, 0), 2000, 100, RED));
+	add_obj_list(new_plane(t_3d_f(0, -100, 0), t_3d_f(0, 1, 0), BLUE));
+	add_obj_list(new_plane(t_3d_f(0, 0, -500), t_3d_f(0, 0, 1), WHITE));
+	t_3d c1[] = {t_3d_f(100, 100, 100), t_3d_f(100, 150, 100), t_3d_f(100, 100, 150)};
+	t_3d c2[] = {t_3d_f(50, 100, 100), t_3d_f(100, 150, 100), t_3d_f(100, 100, 150)};
+	add_obj_list(new_triangle(c1, RED));
+	add_obj_list(new_triangle(c2, GREEN));
+	add_light_list(new_light(t_3d_f(0, 0, 0), 0.5, WHITE));
+	add_light_list(new_light(t_3d_f(300, 300, 300), 0.1, RED));
+	*/
 
-
+	t_3d c1[] = {t_3d_f(0, 0, -30), t_3d_f(50, 0, -30), t_3d_f(0, 50, -30)};
+	add_obj_list(new_triangle(c1, RED));
+	t_3d c2[] = {t_3d_f(50, 50, -30), t_3d_f(50, 0, -30), t_3d_f(0, 50, -30)};
+	add_obj_list(new_triangle(c2, RED));
+	add_obj_list(new_sphere(t_3d_f(0, 0, -50), 10, WHITE));
+	add_light_list(new_light(t_3d_f(0, 0, 0), 0.1, WHITE));
+	
 	g_camera = create_camera_FOV(2 * 3.1415 / 3); 
 	g_is_ambient_on = 1;
 	g_is_diffuse_on = 1;

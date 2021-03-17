@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:39:09 by skern             #+#    #+#             */
-/*   Updated: 2021/03/04 21:59:18 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/17 20:15:41 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_3d			t_3d_cross_product(t_3d a, t_3d b)
 	t_3d	res;
 
 	res.x = a.y * b.z - a.z * b.y;
-	res.y = a.x * b.z - a.z * b.x;
+	res.y = a.z * b.x - a.x * b.z;
 	res.z = a.x * b.y - a.y * b.x;
 	return (res);
 }

@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   plane.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 19:43:10 by skern             #+#    #+#             */
-/*   Updated: 2021/03/17 11:19:25 by skern            ###   ########.fr       */
+/*   Created: 2021/03/17 15:36:48 by skern             #+#    #+#             */
+/*   Updated: 2021/03/17 16:09:49 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef PLANE_H
+# define PLANE_H
 
 # include "object3d.h"
 
-typedef struct	s_sphere_data
+typedef struct  s_plane
 {
-	t_3d	center;
-	float	radius;	
+    t_3d	point;
+    t_3d	normal;
 	int		color;
-}				t_sphere_data;
+}               t_plane_data;
 
-t_object3d	*new_sphere(t_3d center, float radius, int color);
+t_object3d *new_plane(t_3d point, t_3d normal, int color);
 
 #endif
