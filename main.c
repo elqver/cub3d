@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 19:04:13 by skern             #+#    #+#             */
-/*   Updated: 2021/03/17 21:06:39 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/18 17:37:19 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "object3d/cylinder.h"
 #include "object3d/triangle.h"
 #include "object3d/plane.h"
+#include "object3d/square.h"
 #include "phong/phong.h"
 #include "parse/check_rt.h"
 
@@ -207,6 +208,7 @@ void			set_up_scene()
 	t_3d c2[] = {t_3d_f(50, 50, -30), t_3d_f(50, 0, -30), t_3d_f(0, 50, -30)};
 	add_obj_list(new_triangle(c2, RED));
 	add_obj_list(new_sphere(t_3d_f(0, 0, -50), 10, WHITE));
+	add_obj_list(new_square(t_3d_f(0, 100, -80), t_3d_unit(t_3d_f(1, -1, 1)), 20, WHITE));
 	add_light_list(new_light(t_3d_f(0, 0, 0), 0.1, WHITE));
 	
 	g_camera = create_camera_FOV(2 * 3.1415 / 3); 

@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   square.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 19:43:10 by skern             #+#    #+#             */
-/*   Updated: 2021/03/18 17:33:14 by skern            ###   ########.fr       */
+/*   Created: 2021/03/18 14:32:57 by skern             #+#    #+#             */
+/*   Updated: 2021/03/18 16:10:24 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef SQUARE_H
+# define SQUARE_H
 
 # include "object3d.h"
 
-typedef struct	s_sphere_data
+typedef struct	s_square_data
 {
-	t_3d	center;
-	float	radius;	
+	t_3d	c[4];
+	t_3d	normal;
 	int		color;
-}				t_sphere_data;
+}				t_square_data;
 
-
-
-t_object3d	*new_sphere(t_3d center, float radius, int color);
+t_object3d *new_square(t_3d center, t_3d normal, float side_size, int color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 18:16:04 by skern             #+#    #+#             */
-/*   Updated: 2021/03/17 20:12:59 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/18 14:50:45 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int		get_triangle_intersect(const t_triangle_data *data, t_3d ray_start_point, t
 	intersection_point->x = ray_start_point.x + distance * ray_direction.x;
     intersection_point->y = ray_start_point.y + distance * ray_direction.y;
     intersection_point->z = ray_start_point.z + distance * ray_direction.z;
-	printf("vse zaebis\n");
 	
 	return (1);
 }
