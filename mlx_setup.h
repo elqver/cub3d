@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   plane.h                                            :+:      :+:    :+:   */
+/*   mlx_setup.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 15:36:48 by skern             #+#    #+#             */
-/*   Updated: 2021/03/21 19:43:23 by skern            ###   ########.fr       */
+/*   Created: 2021/03/20 15:39:54 by skern             #+#    #+#             */
+/*   Updated: 2021/03/20 16:15:16 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLANE_H
-# define PLANE_H
+#ifndef MLX_SETUP_H
+# define MLX_SETUP_H
 
-# include "object3d.h"
+#define WINDOW_WIDTH 400
+#define WINDOW_HEIGHT 400
 
-typedef struct	s_plane
+void    		*mlx;
+void    		*mlx_win;
+
+typedef struct  s_data 
 {
-	t_3d		point;
-	t_3d		normal;
-	int			color;
-}				t_plane_data;
+    void        *img;
+    char        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         endian;
+}               t_data;
 
-t_object3d		*new_plane(t_3d point, t_3d normal, int color);
+t_data  		img;
 
 #endif

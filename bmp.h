@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   plane.h                                            :+:      :+:    :+:   */
+/*   bmp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 15:36:48 by skern             #+#    #+#             */
-/*   Updated: 2021/03/21 19:43:23 by skern            ###   ########.fr       */
+/*   Created: 2021/03/20 16:04:08 by skern             #+#    #+#             */
+/*   Updated: 2021/03/21 16:30:59 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLANE_H
-# define PLANE_H
+#ifndef BMP_H
+# define BMP_H
+# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include "mlx_setup.h"
 
-# include "object3d.h"
-
-typedef struct	s_plane
+typedef struct			s_img
 {
-	t_3d		point;
-	t_3d		normal;
-	int			color;
-}				t_plane_data;
+	void				*img;
+	char				*addr;
+	int					bpp;
+	int					ll;
+	int					en;
+}						t_img;
 
-t_object3d		*new_plane(t_3d point, t_3d normal, int color);
+void			render_screenshot();
 
 #endif
+

@@ -6,12 +6,13 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 19:04:13 by skern             #+#    #+#             */
-/*   Updated: 2021/03/18 17:37:19 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/21 19:40:13 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h> //delete me later
+#include <stdio.h>
 #include <mlx.h>
+#include "mlx_setup.h"
 #include <stdio.h>
 #include <sphere.h>
 #include <math.h>
@@ -25,25 +26,15 @@
 #include "object3d/square.h"
 #include "phong/phong.h"
 #include "parse/check_rt.h"
+#include "bmp.h"
 
-#define WINDOW_WIDTH 400
-#define WINDOW_HEIGHT 400
+int				ft_memcmp(const void *s1, const void *s2, size_t n);
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n);
-
-typedef struct  s_data {
-    void        *img;
-    char        *addr;
-    int         bits_per_pixel;
-    int         line_length;
-    int         endian;
-}               t_data;
-
-void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void            my_mlx_pixel_put(int x, int y, int color)
 {
     char    *dst;
 
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+    dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
     *(unsigned int*)dst = color;
 }
 
@@ -85,7 +76,7 @@ void			find_nearest(t_3d ray, t_object3d **nearest_obj, t_3d *nearest_intersecti
 	}
 }
 
-int				draw_scene(t_data *img)
+int				draw_scene()
 {
 	t_object3d	*nearest_obj;
 	t_3d		nearest_intersection_point;
@@ -115,10 +106,10 @@ int				draw_scene(t_data *img)
 														)
 								   				)
 								  );
-				my_mlx_pixel_put(img, i, j, (int)color);
+				my_mlx_pixel_put(i, j, (int)color);
 			}
 			else
-				my_mlx_pixel_put(img, i, j, 0);
+				my_mlx_pixel_put(i, j, 0);
 		}
 	}
 	return (1);	
@@ -156,13 +147,21 @@ int				bind_camera_movements(int keycode, t_data *img)
 		g_is_ambient_on = !g_is_ambient_on;
 	else if (keycode == 31)
 		g_is_diffuse_on = !g_is_diffuse_on;
+
+	else if (keycode == 46)
+		swap_to_next_camera_state();
+	else if (keycode == 45)
+		swap_to_prev_camera_state();
+
+	else if (keycode == 11)
+		render_screenshot("JOPA_TUPAYA.bmp");
 	else
 		return (0);
 
 	printf("camera pos: %f, %f, %f\n", g_camera.displacement.x, g_camera.displacement.y, g_camera.displacement.z);
 	printf("camera rot: %f, %f, %f, %f\n", g_camera.rotation.a, g_camera.rotation.x, g_camera.rotation.y, g_camera.rotation.z);
 
-	draw_scene(img);
+	draw_scene();
 	mlx_put_image_to_window(mlx, mlx_win, img->img, 0, 0);
 
 	return(1);
@@ -184,8 +183,6 @@ void			set_up_scene()
 
 	/*
 	add_obj_list(new_sphere(t_3d_f(-20, 30, -100), 30, 255 * 256 * 256 + 122 * 256 + 122));
-	add_obj_list(new_cylinder(t_3d_f(-20, 30, -100), t_3d_f(0, 0, 1), 10., 100., RED));
-	add_obj_list(new_cylinder(t_3d_f(-20, 30, -100), t_3d_f(0, 1, 0), 10., 100., WHITE));
 	add_light_list(new_light(t_3d_f(-50, 100, -200), 0.3, GREEN));
 	add_light_list(new_light(t_3d_f(-50, 100, -200), 0.3, BLUE));
 	*/
@@ -203,6 +200,9 @@ void			set_up_scene()
 	add_light_list(new_light(t_3d_f(300, 300, 300), 0.1, RED));
 	*/
 
+	float jopa1[]	= {10, 100};
+	add_obj_list(new_cylinder(t_3d_f(-20, 30, -100), t_3d_f(0, 1, 0), jopa1, WHITE));
+	add_obj_list(new_cylinder(t_3d_f(-20, 30, -100), t_3d_f(0, 0, 1), jopa1, RED));
 	t_3d c1[] = {t_3d_f(0, 0, -30), t_3d_f(50, 0, -30), t_3d_f(0, 50, -30)};
 	add_obj_list(new_triangle(c1, RED));
 	t_3d c2[] = {t_3d_f(50, 50, -30), t_3d_f(50, 0, -30), t_3d_f(0, 50, -30)};
@@ -211,7 +211,10 @@ void			set_up_scene()
 	add_obj_list(new_square(t_3d_f(0, 100, -80), t_3d_unit(t_3d_f(1, -1, 1)), 20, WHITE));
 	add_light_list(new_light(t_3d_f(0, 0, 0), 0.1, WHITE));
 	
-	g_camera = create_camera_FOV(2 * 3.1415 / 3); 
+	g_camera = create_camera_FOV(2 * 3.1415 / 6); 
+	append_to_camera_state_list(g_camera);
+	append_to_camera_state_list(g_camera);
+	loop_camera_state_list();
 	g_is_ambient_on = 1;
 	g_is_diffuse_on = 1;
 	g_ambient = 0.5;
@@ -219,8 +222,6 @@ void			set_up_scene()
 
 int             main(void)
 {
-	t_data  		img;
-
 	if (check_rt_file("set_up.rt"))
 	{
 		mlx = mlx_init();
@@ -229,11 +230,13 @@ int             main(void)
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 									 &img.endian);
 		set_up_scene();
-		draw_scene(&img);
+		draw_scene();
 		mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 		mlx_key_hook(mlx_win, bind_camera_movements, &img);
 		mlx_loop(mlx);
 	}
 	else
 		printf("\nfile fucked up\n");
+	append_to_camera_state_list(g_camera);
+	append_to_camera_state_list(g_camera);
 }

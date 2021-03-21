@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:24:43 by skern             #+#    #+#             */
-/*   Updated: 2021/03/04 21:35:49 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/20 15:18:44 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "t_3d.h"
 # include "quaternion.h"
+# include <stdlib.h>
 # include <math.h>
 
 typedef struct	s_camera
@@ -37,5 +38,18 @@ void			yaw_camera(float angle);
 t_camera		create_camera_FOV(float FOV);
 t_camera		create_camera();
 t_3d			set_normal_on_camera(t_3d base_normal, t_3d point_position);
+
+typedef struct	s_camera_state_list
+{
+	struct s_camera_state_list *next;
+	struct s_camera_state_list *prev;
+	t_camera camera_state;
+}				t_camera_state_list;
+
+t_camera_state_list *g_camera_state_list;
+void				append_to_camera_state_list(t_camera camera_state);
+void				loop_camera_state_list();
+void				swap_to_next_camera_state();
+void				swap_to_prev_camera_state();
 
 #endif

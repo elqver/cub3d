@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 18:15:54 by skern             #+#    #+#             */
-/*   Updated: 2021/03/18 16:01:26 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/21 19:46:33 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 typedef struct	s_triangle_data
 {
-	t_3d	c[3];
-	int		color;
+	t_3d		c[3];
+	int			color;
 }				t_triangle_data;
 
-t_object3d *new_triangle(t_3d c[3], int color);
+t_object3d		*new_triangle(t_3d c[3], int color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 16:12:07 by skern             #+#    #+#             */
-/*   Updated: 2021/03/04 22:09:58 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/21 19:48:21 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				add_obj_list(t_object3d *obj)
 	return (1);
 }
 
-void			pop_obj_list()
+void			pop_obj_list(void)
 {
 	t_object3d_list *current;
 
