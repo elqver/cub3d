@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:24:43 by skern             #+#    #+#             */
-/*   Updated: 2021/03/20 15:18:44 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/22 18:19:05 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct	s_camera
 {
 	t_3d	displacement;
 	t_quat	rotation;
-	float	FOV;
+	float	fov;
 }				t_camera;
 
 t_camera		g_camera;
@@ -35,8 +35,8 @@ void			move_camera_down(float distance);
 void			roll_camera(float angle);
 void			pitch_camera(float angle);
 void			yaw_camera(float angle);
-t_camera		create_camera_FOV(float FOV);
-t_camera		create_camera();
+t_camera		create_camera_fov(float fov);
+t_camera		create_camera(t_3d displacement, t_quat rotation, float fov);
 t_3d			set_normal_on_camera(t_3d base_normal, t_3d point_position);
 
 typedef struct	s_camera_state_list

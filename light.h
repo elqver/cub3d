@@ -6,12 +6,12 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 19:57:30 by skern             #+#    #+#             */
-/*   Updated: 2021/03/20 16:09:12 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/22 13:45:55 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIGHT_H
-#define LIGHT_H
+# define LIGHT_H
 
 # include "t_3d.h"
 # define RED 16711680
@@ -21,9 +21,9 @@
 
 typedef struct	s_light
 {
-	t_3d	position;
-	float	ratio;
-	int		color;
+	t_3d		position;
+	float		ratio;
+	int			color;
 }				t_light;
 
 typedef struct	s_light_list

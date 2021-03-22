@@ -6,28 +6,22 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 16:04:08 by skern             #+#    #+#             */
-/*   Updated: 2021/03/21 16:30:59 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/22 13:39:32 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BMP_H
 # define BMP_H
+
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include "mlx_setup.h"
 
-typedef struct			s_img
-{
-	void				*img;
-	char				*addr;
-	int					bpp;
-	int					ll;
-	int					en;
-}						t_img;
+# define BMP_FILE_HEADER_SIZE 14
+# define BMP_INFO_HEADER_SIZE 40
 
 void			render_screenshot();
 
 #endif
-

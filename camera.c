@@ -6,14 +6,14 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:49:01 by skern             #+#    #+#             */
-/*   Updated: 2021/03/20 15:30:59 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/22 21:12:14 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera.h"
 #include "quaternion.h"
 
-t_camera		create_camera_FOV(float FOV)
+t_camera		create_camera_fov(float fov)
 {
 	t_camera	res;
 	t_quat		zero_quaternion;
@@ -22,7 +22,20 @@ t_camera		create_camera_FOV(float FOV)
 	res.displacement = t_3d_f(0, 0, 0);
 	res.rotation = zero_quaternion;
 	res.rotation.a = 1;
-	res.FOV = FOV;
+	res.fov = fov;
+	return (res);
+}
+
+t_camera		create_camera(t_3d displacement,
+								t_quat rotation,
+								float fov)
+{
+	t_camera	res;
+
+	res.displacement = displacement;
+	res.rotation = rotation;
+	res.fov = fov / 57.29;
+	;
 	return (res);
 }
 
@@ -30,7 +43,12 @@ static void		move_camera(t_3d base_direction, float distance)
 {
 	t_3d	tmp;
 
-	tmp = t_3d_scalar_mul(t_3d_unit(t_3d_t_quat(t_quat_rotate(g_camera.rotation, base_direction))), distance);
+	tmp = t_3d_scalar_mul(
+				t_3d_unit(
+					t_3d_t_quat(
+						t_quat_rotate(g_camera.rotation,
+										base_direction))),
+				distance);
 	g_camera.displacement = t_3d_sum(g_camera.displacement, tmp);
 }
 
@@ -73,14 +91,14 @@ static void		rotate_camera(float angle, t_3d base_vector)
 	g_camera.rotation = t_quat_compose_rotation(g_camera.rotation, upd_quat);
 }
 
-void			roll_camera(float	angle)
+void			roll_camera(float angle)
 {
 	t_3d	base_vector;
 
 	base_vector.x = 0;
 	base_vector.y = 0;
 	base_vector.z = -1;
-
+	;
 	rotate_camera(angle, base_vector);
 }
 
@@ -91,7 +109,7 @@ void			pitch_camera(float angle)
 	base_vector.x = 1;
 	base_vector.y = 0;
 	base_vector.z = 0;
-
+	;
 	rotate_camera(angle, base_vector);
 }
 
@@ -102,24 +120,27 @@ void			yaw_camera(float angle)
 	base_vector.x = 0;
 	base_vector.y = 1;
 	base_vector.z = 0;
-
+	;
 	rotate_camera(angle, base_vector);
 }
 
 t_3d			set_normal_on_camera(t_3d base_normal, t_3d point_position)
 {
-	if (t_3d_dot_product(base_normal, t_3d_difference(g_camera.displacement, point_position)) < 0)
+	if (t_3d_dot_product(base_normal,
+							t_3d_difference(g_camera.displacement,
+											point_position)) < 0)
 		return (t_3d_scalar_mul(base_normal, -1));
 	return (base_normal);
 }
 
-void				append_to_camera_state_list(t_camera camera_state)
+void			append_to_camera_state_list(t_camera camera_state)
 {
 	t_camera_state_list *current_list_node;
 
 	if (g_camera_state_list == NULL)
 	{
-		g_camera_state_list = (t_camera_state_list *)malloc(sizeof(t_camera_state_list));
+		g_camera_state_list = (t_camera_state_list *)malloc(
+												sizeof(t_camera_state_list));
 		g_camera_state_list->next = NULL;
 		g_camera_state_list->prev = NULL;
 		g_camera_state_list->camera_state = camera_state;
@@ -128,13 +149,14 @@ void				append_to_camera_state_list(t_camera camera_state)
 	current_list_node = g_camera_state_list;
 	while (current_list_node->next != NULL)
 		current_list_node = current_list_node->next;
-	current_list_node->next = (t_camera_state_list *)malloc(sizeof(t_camera_state_list));
+	current_list_node->next = (t_camera_state_list *)malloc(
+												sizeof(t_camera_state_list));
 	current_list_node->next->next = NULL;
 	current_list_node->next->prev = current_list_node;
 	current_list_node->next->camera_state = camera_state;
 }
 
-void				loop_camera_state_list()
+void			loop_camera_state_list(void)
 {
 	t_camera_state_list *current_list_node;
 
@@ -145,14 +167,14 @@ void				loop_camera_state_list()
 	current_list_node->next = g_camera_state_list;
 }
 
-void				swap_to_next_camera_state()
+void			swap_to_next_camera_state(void)
 {
 	g_camera_state_list->camera_state = g_camera;
 	g_camera_state_list = g_camera_state_list->next;
 	g_camera = g_camera_state_list->camera_state;
 }
 
-void				swap_to_prev_camera_state()
+void			swap_to_prev_camera_state(void)
 {
 	g_camera_state_list->camera_state = g_camera;
 	g_camera_state_list = g_camera_state_list->next;

@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 16:22:39 by skern             #+#    #+#             */
-/*   Updated: 2021/03/04 21:10:22 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/22 13:45:17 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_light			new_light(t_3d position, float ratio, int color)
 	res.position = position;
 	res.ratio = ratio;
 	res.color = color;
-
+	;
 	return (res);
 }
 
@@ -46,7 +46,7 @@ int				add_light_list(t_light light)
 	return (1);
 }
 
-void			pop_light_list()
+void			pop_light_list(void)
 {
 	t_light_list *current;
 

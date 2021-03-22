@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 14:30:28 by skern             #+#    #+#             */
-/*   Updated: 2021/03/21 20:26:02 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/21 20:41:22 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	get_triangle_intersect(t_3d c[3],
 									t_3d ray_start_point,
-									t_3d ray_direction,
+									t_3d rd,
 									t_3d *intersection_point)
 {
 	t_3d	e[4];
@@ -25,14 +25,14 @@ static int	get_triangle_intersect(t_3d c[3],
 	float	v;
 
 	rd = t_3d_unit(rd);
-	e[0] = t_3d_difference((data->c)[1], (data->c)[0]);
-	e[1] = t_3d_difference((data->c)[2], (data->c)[0]);
+	e[0] = t_3d_difference(c[1], c[0]);
+	e[1] = t_3d_difference(c[2], c[0]);
 	e[2] = t_3d_cross_product(rd, e[1]);
 	det = t_3d_dot_product(e[0], e[2]);
 	if (det == 0)
 		return (0);
 	det = 1 / det;
-	e[3] = t_3d_difference(ray_start_point, (data->c)[0]);
+	e[3] = t_3d_difference(ray_start_point, c[0]);
 	u = t_3d_dot_product(e[3], e[2]) * det;
 	if (u < 0 || u > 1)
 		return (0);

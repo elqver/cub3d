@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:59:24 by skern             #+#    #+#             */
-/*   Updated: 2021/03/09 18:12:53 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/22 20:14:35 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define CHECK_RT_H
 
 # include <fcntl.h>
+# include <stdlib.h>
 
 # define RESOLUTION 1
 # define AMBIENT 2
@@ -42,5 +43,6 @@ int			check_plane(char **line);
 int			check_square(char **line);
 int			check_cylinder(char **line);
 int			check_triangle(char **line);
+int			get_type_identifier(char **line);
 
 #endif

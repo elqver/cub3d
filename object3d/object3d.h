@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:33:03 by skern             #+#    #+#             */
-/*   Updated: 2021/03/21 20:30:09 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:28:38 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,11 @@ typedef struct	s_object3d
 {
 	void	*data;
 
-	int		(*intersect)(const void *data,
-							t_3d ray_start_point,
-							t_3d ray_direction,
-							t_3d *intersection_point);
+	int		(*intersect)();
 
-	int		(*get_color)(const void *data, t_3d intersection_point);
+	int		(*get_color)();
 
-	t_3d	(*get_normal_vector)(const void *data,
-									const t_3d intersection_point);
+	t_3d	(*get_normal_vector)();
 
 }				t_object3d;
 

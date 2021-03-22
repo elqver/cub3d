@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 19:04:13 by skern             #+#    #+#             */
-/*   Updated: 2021/03/21 19:40:13 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/22 22:21:37 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void            my_mlx_pixel_put(int x, int y, int color)
 {
     char    *dst;
 
-    dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
+    dst = g_img.addr + (y * g_img.line_length + x * (g_img.bits_per_pixel / 8));
     *(unsigned int*)dst = color;
 }
 
@@ -86,14 +86,14 @@ int				draw_scene()
 	int			color;
 	
 	j = -1;
-	while (++j < WINDOW_HEIGHT)
+	while (++j < g_window_height)
 	{
 		i = -1;
-		while (++i < WINDOW_WIDTH)
+		while (++i < g_window_width)
 		{
-			ray.x = (i - WINDOW_WIDTH / 2);
-			ray.y = -(j - WINDOW_HEIGHT / 2);
-			ray.z = -(WINDOW_WIDTH / (2 * tan(g_camera.FOV / 2)));
+			ray.x = (i - g_window_width / 2);
+			ray.y = -(j - g_window_height / 2);
+			ray.z = -(g_window_width / (2 * tan(g_camera.fov / 2)));
 			ray = t_3d_t_quat(t_quat_rotate(g_camera.rotation, ray));
 			find_nearest(ray, &nearest_obj, &nearest_intersection_point);
 			if (nearest_obj != NULL)
@@ -102,10 +102,7 @@ int				draw_scene()
 				color = nearest_obj->get_color(nearest_obj->data, nearest_intersection_point);
 				color = color_t_3d(t_3d_pair_mul(t_3d_color(color), 
 								   phong_light_amplifier(nearest_obj, 
-														  nearest_intersection_point
-														)
-								   				)
-								  );
+														  nearest_intersection_point)));
 				my_mlx_pixel_put(i, j, (int)color);
 			}
 			else
@@ -115,7 +112,7 @@ int				draw_scene()
 	return (1);	
 }
 
-int				bind_camera_movements(int keycode, t_data *img)
+int				bind_camera_movements(int keycode, t_data *g_img)
 {
 	printf("current keycode is %d\n", keycode);
 	if (keycode == 13)
@@ -162,81 +159,33 @@ int				bind_camera_movements(int keycode, t_data *img)
 	printf("camera rot: %f, %f, %f, %f\n", g_camera.rotation.a, g_camera.rotation.x, g_camera.rotation.y, g_camera.rotation.z);
 
 	draw_scene();
-	mlx_put_image_to_window(mlx, mlx_win, img->img, 0, 0);
+	mlx_put_image_to_window(g_mlx, g_mlx_win, g_img->img, 0, 0);
 
 	return(1);
-}
-
-void			set_up_scene()
-{
-	/*
-	add_obj_list(new_sphere(t_3d_f(-40, 0, -90), 15, RED));
-	add_obj_list(new_sphere(t_3d_f(-20, 0, -90), 20, RED));
-	add_light_list(new_light(t_3d_f(-30, 30, -90), 1, WHITE));
-	*/
-
-	/*
-	add_obj_list(new_sphere(t_3d_f(-20, 0, -100), 3, RED));
-	add_obj_list(new_sphere(t_3d_f(20, 0, -100), 30, RED));
-	add_light_list(new_light(t_3d_f(-50, 0, -100), 1, WHITE));
-	*/
-
-	/*
-	add_obj_list(new_sphere(t_3d_f(-20, 30, -100), 30, 255 * 256 * 256 + 122 * 256 + 122));
-	add_light_list(new_light(t_3d_f(-50, 100, -200), 0.3, GREEN));
-	add_light_list(new_light(t_3d_f(-50, 100, -200), 0.3, BLUE));
-	*/
-	
-	/*
-	add_obj_list(new_sphere(t_3d_f(0, 0, -200), 50, GREEN));
-	add_obj_list(new_cylinder(t_3d_f(0, 0, 0), t_3d_f(0, 1, 0), 2000, 100, RED));
-	add_obj_list(new_plane(t_3d_f(0, -100, 0), t_3d_f(0, 1, 0), BLUE));
-	add_obj_list(new_plane(t_3d_f(0, 0, -500), t_3d_f(0, 0, 1), WHITE));
-	t_3d c1[] = {t_3d_f(100, 100, 100), t_3d_f(100, 150, 100), t_3d_f(100, 100, 150)};
-	t_3d c2[] = {t_3d_f(50, 100, 100), t_3d_f(100, 150, 100), t_3d_f(100, 100, 150)};
-	add_obj_list(new_triangle(c1, RED));
-	add_obj_list(new_triangle(c2, GREEN));
-	add_light_list(new_light(t_3d_f(0, 0, 0), 0.5, WHITE));
-	add_light_list(new_light(t_3d_f(300, 300, 300), 0.1, RED));
-	*/
-
-	float jopa1[]	= {10, 100};
-	add_obj_list(new_cylinder(t_3d_f(-20, 30, -100), t_3d_f(0, 1, 0), jopa1, WHITE));
-	add_obj_list(new_cylinder(t_3d_f(-20, 30, -100), t_3d_f(0, 0, 1), jopa1, RED));
-	t_3d c1[] = {t_3d_f(0, 0, -30), t_3d_f(50, 0, -30), t_3d_f(0, 50, -30)};
-	add_obj_list(new_triangle(c1, RED));
-	t_3d c2[] = {t_3d_f(50, 50, -30), t_3d_f(50, 0, -30), t_3d_f(0, 50, -30)};
-	add_obj_list(new_triangle(c2, RED));
-	add_obj_list(new_sphere(t_3d_f(0, 0, -50), 10, WHITE));
-	add_obj_list(new_square(t_3d_f(0, 100, -80), t_3d_unit(t_3d_f(1, -1, 1)), 20, WHITE));
-	add_light_list(new_light(t_3d_f(0, 0, 0), 0.1, WHITE));
-	
-	g_camera = create_camera_FOV(2 * 3.1415 / 6); 
-	append_to_camera_state_list(g_camera);
-	append_to_camera_state_list(g_camera);
-	loop_camera_state_list();
-	g_is_ambient_on = 1;
-	g_is_diffuse_on = 1;
-	g_ambient = 0.5;
 }
 
 int             main(void)
 {
 	if (check_rt_file("set_up.rt"))
 	{
-		mlx = mlx_init();
-		mlx_win = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "miniRT"); 
-		img.img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-									 &img.endian);
-		set_up_scene();
+		parse_file("set_up.rt");
+		loop_camera_state_list();
+		g_is_ambient_on = 1;
+		g_is_diffuse_on = 1;
+		g_mlx = mlx_init();
+		g_mlx_win = mlx_new_window(g_mlx, 
+									g_window_width,
+									g_window_height,
+									"miniRT"); 
+		g_camera = g_camera_state_list->camera_state;
+		g_img.img = mlx_new_image(g_mlx, g_window_width, g_window_height);
+		g_img.addr = mlx_get_data_addr(g_img.img, &g_img.bits_per_pixel, &g_img.line_length,
+									 &g_img.endian);
 		draw_scene();
-		mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-		mlx_key_hook(mlx_win, bind_camera_movements, &img);
-		mlx_loop(mlx);
+		mlx_put_image_to_window(g_mlx, g_mlx_win, g_img.img, 0, 0);
+		mlx_key_hook(g_mlx_win, bind_camera_movements, &g_img);
+		mlx_loop(g_mlx);
 	}
 	else
-		printf("\nfile fucked up\n");
-	append_to_camera_state_list(g_camera);
-	append_to_camera_state_list(g_camera);
+		printf("\nsomething wrong in .rt file\n");
 }
