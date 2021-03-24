@@ -6,14 +6,11 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 18:16:04 by skern             #+#    #+#             */
-/*   Updated: 2021/03/21 20:25:28 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/24 20:37:50 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "object3d.h"
 #include "triangle.h"
-#include "../t_3d.h"
-#include <stdlib.h>
 
 int			get_triangle_intersect(const t_triangle_data *data,
 								t_3d ray_start_point,

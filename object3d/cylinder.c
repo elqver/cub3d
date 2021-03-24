@@ -6,16 +6,11 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 19:01:15 by skern             #+#    #+#             */
-/*   Updated: 2021/03/22 19:28:33 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/24 17:51:13 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "object3d.h"
-#include "../light.h"
-#include "../t_3d.h"
 #include "cylinder.h"
-#include <math.h>
-#include <stdlib.h>
 
 static float	min_pos_number_if_possible(float a, float b)
 {
@@ -132,7 +127,6 @@ int	static		get_cylinder_color(t_cylinder_data *data,
 ** params[0] = diameter
 ** params[1] = height
 */
-
 t_object3d		*new_cylinder(t_3d center,
 								t_3d orientation,
 								float params[2],

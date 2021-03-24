@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bmp.h                                              :+:      :+:    :+:   */
+/*   parse_resolution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 16:04:08 by skern             #+#    #+#             */
-/*   Updated: 2021/03/22 13:39:32 by skern            ###   ########.fr       */
+/*   Created: 2021/03/24 18:54:29 by skern             #+#    #+#             */
+/*   Updated: 2021/03/24 20:47:11 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BMP_H
-# define BMP_H
+#include "parse.h"
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "mlx_setup.h"
-
-# define BMP_FILE_HEADER_SIZE 14
-# define BMP_INFO_HEADER_SIZE 40
-
-void			render_screenshot();
-
-#endif
+void	parse_resloution(char **str)
+{
+	skip_till_digit(str);
+	g_window_width = parse_number(str);
+	if (g_window_width <= 100)
+		g_window_width = 100;
+	skip_till_digit(str);
+	g_window_height = parse_number(str);
+	if (g_window_height <= 100)
+		g_window_height = 100;
+}

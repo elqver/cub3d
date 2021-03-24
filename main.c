@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 19:04:13 by skern             #+#    #+#             */
-/*   Updated: 2021/03/22 22:21:37 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/24 23:38:30 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <stdio.h>
 #include <sphere.h>
 #include <math.h>
-#include "light.h"
-#include "camera.h"
+#include "light/light.h"
+#include "camera/camera.h"
 #include "object3d/object3d.h"
 #include "object3d/sphere.h"
 #include "object3d/cylinder.h"
@@ -25,8 +25,9 @@
 #include "object3d/plane.h"
 #include "object3d/square.h"
 #include "phong/phong.h"
-#include "parse/check_rt.h"
-#include "bmp.h"
+#include "parse/parse.h"
+#include "check_rt/check_rt.h"
+#include "bmp/bmp.h"
 
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 
@@ -151,7 +152,7 @@ int				bind_camera_movements(int keycode, t_data *g_img)
 		swap_to_prev_camera_state();
 
 	else if (keycode == 11)
-		render_screenshot("JOPA_TUPAYA.bmp");
+		render_screenshot("miniRT.bmp");
 	else
 		return (0);
 
@@ -164,28 +165,64 @@ int				bind_camera_movements(int keycode, t_data *g_img)
 	return(1);
 }
 
-int             main(void)
+static int		ft_strlen(char *line)
 {
-	if (check_rt_file("set_up.rt"))
+	int	result;
+
+	result = 0;
+	while (line[result] != '\0')
+		result++;
+	return (result);
+}
+
+int				file_is_rt(char *file_name)
+{
+	int	file_name_len;
+
+	file_name_len = ft_strlen(file_name);
+	if (!ft_memcmp(&(file_name[file_name_len - 3]), ".rt", 3))
+		return (1);
+	return (0);
+}
+
+void			set_up_g(void)
+{
+	loop_camera_state_list();
+	g_is_ambient_on = 1;
+	g_is_diffuse_on = 1;
+	g_mlx = mlx_init();
+	g_camera = g_camera_state_list->camera_state;
+	g_img.img = mlx_new_image(g_mlx, g_window_width, g_window_height);
+	g_img.addr = mlx_get_data_addr(g_img.img,
+									&g_img.bits_per_pixel,
+									&g_img.line_length,
+									&g_img.endian);
+}
+
+int             main(int argc, char **argv)
+{
+	if (argc == 2 || argc == 3)
 	{
-		parse_file("set_up.rt");
-		loop_camera_state_list();
-		g_is_ambient_on = 1;
-		g_is_diffuse_on = 1;
-		g_mlx = mlx_init();
-		g_mlx_win = mlx_new_window(g_mlx, 
-									g_window_width,
-									g_window_height,
-									"miniRT"); 
-		g_camera = g_camera_state_list->camera_state;
-		g_img.img = mlx_new_image(g_mlx, g_window_width, g_window_height);
-		g_img.addr = mlx_get_data_addr(g_img.img, &g_img.bits_per_pixel, &g_img.line_length,
-									 &g_img.endian);
+		if (!file_is_rt(argv[1]) || !check_rt_file(argv[1]))
+		{
+			printf("something wrong with configuration file\n");
+			return (1);
+		}
+		parse_file(argv[1]);
+		set_up_g();
 		draw_scene();
+		if (argc == 3)
+			if (!ft_memcmp(argv[2], "--save", 6))
+			{
+				printf("making screenshot\n");
+				render_screenshot("miniRT.bmp");
+				return (0);
+			}
+		g_mlx_win = mlx_new_window(g_mlx, g_window_width, g_window_height, "miniRT"); 
 		mlx_put_image_to_window(g_mlx, g_mlx_win, g_img.img, 0, 0);
 		mlx_key_hook(g_mlx_win, bind_camera_movements, &g_img);
 		mlx_loop(g_mlx);
 	}
-	else
-		printf("\nsomething wrong in .rt file\n");
+	printf("wrong number of arguments\n");
+	return (1);
 }

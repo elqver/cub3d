@@ -6,14 +6,14 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:33:03 by skern             #+#    #+#             */
-/*   Updated: 2021/03/22 14:28:38 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/24 17:50:14 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECT3D_H
 # define OBJECT3D_H
 
-# include "../t_3d.h"
+# include "../t_3d/t_3d.h"
 # include "stdlib.h"
 
 typedef struct	s_object3d

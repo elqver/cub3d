@@ -6,14 +6,14 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 19:57:30 by skern             #+#    #+#             */
-/*   Updated: 2021/03/22 13:45:55 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/24 20:42:09 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIGHT_H
 # define LIGHT_H
 
-# include "t_3d.h"
+# include "../t_3d/t_3d.h"
 # define RED 16711680
 # define GREEN 65280
 # define BLUE 255

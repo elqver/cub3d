@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 20:23:14 by skern             #+#    #+#             */
-/*   Updated: 2021/03/22 17:29:01 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/24 22:36:52 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ t_3d			phong_light_amplifier(const t_object3d *object,
 										get_diffuse_amplifier(object,
 															point_position));
 	if (g_is_specular_on)
-		;
+	;
 	return (compress_amplifier(resulted_amplifier));
 }

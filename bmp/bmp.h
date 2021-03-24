@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   bmp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 19:43:10 by skern             #+#    #+#             */
-/*   Updated: 2021/03/24 20:24:56 by skern            ###   ########.fr       */
+/*   Created: 2021/03/20 16:04:08 by skern             #+#    #+#             */
+/*   Updated: 2021/03/24 17:15:51 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef BMP_H
+# define BMP_H
 
-# include <math.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
 # include <stdlib.h>
-# include "object3d.h"
-# include "../light/light.h"
-# include "../t_3d/t_3d.h"
+# include "../mlx_setup.h"
 
-typedef struct	s_sphere_data
-{
-	t_3d		center;
-	float		radius;
-	int			color;
-}				t_sphere_data;
+# define BMP_FILE_HEADER_SIZE 14
+# define BMP_INFO_HEADER_SIZE 40
 
-t_object3d		*new_sphere(t_3d center, float radius, int color);
+void			render_screenshot();
 
 #endif

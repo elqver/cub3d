@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   t_3d_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 19:43:10 by skern             #+#    #+#             */
-/*   Updated: 2021/03/24 20:24:56 by skern            ###   ########.fr       */
+/*   Created: 2021/03/24 20:06:44 by skern             #+#    #+#             */
+/*   Updated: 2021/03/24 20:07:17 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#include "t_3d.h"
 
-# include <math.h>
-# include <stdlib.h>
-# include "object3d.h"
-# include "../light/light.h"
-# include "../t_3d/t_3d.h"
-
-typedef struct	s_sphere_data
+int				color_t_3d(t_3d a)
 {
-	t_3d		center;
-	float		radius;
-	int			color;
-}				t_sphere_data;
+	return ((int)a.x * 65536 + (int)a.y * 256 + (int)a.z);
+}
 
-t_object3d		*new_sphere(t_3d center, float radius, int color);
-
-#endif
+t_3d			t_3d_pair_mul(t_3d a, t_3d b)
+{
+	a.x = a.x * b.x;
+	a.y = a.y * b.y;
+	a.z = a.z * b.z;
+	;
+	return (a);
+}

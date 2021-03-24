@@ -6,14 +6,15 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:56:14 by skern             #+#    #+#             */
-/*   Updated: 2021/02/17 15:48:06 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/24 20:25:31 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef QUATERNION_H
 # define QUATERNION_H
 
-# include "t_3d.h"
+# include "../t_3d/t_3d.h"
+# include <math.h>
 
 typedef struct	s_quaternion
 {

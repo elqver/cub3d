@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   camera_move2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 19:43:10 by skern             #+#    #+#             */
-/*   Updated: 2021/03/24 20:24:56 by skern            ###   ########.fr       */
+/*   Created: 2021/03/24 17:31:15 by skern             #+#    #+#             */
+/*   Updated: 2021/03/24 20:55:26 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#include "camera.h"
 
-# include <math.h>
-# include <stdlib.h>
-# include "object3d.h"
-# include "../light/light.h"
-# include "../t_3d/t_3d.h"
-
-typedef struct	s_sphere_data
+void			move_camera_left(float distance)
 {
-	t_3d		center;
-	float		radius;
-	int			color;
-}				t_sphere_data;
+	move_camera(t_3d_f(-1, 0, 0), distance);
+}
 
-t_object3d		*new_sphere(t_3d center, float radius, int color);
+void			move_camera_right(float distance)
+{
+	move_camera(t_3d_f(1, 0, 0), distance);
+}
 
-#endif
+void			move_camera_up(float distance)
+{
+	move_camera(t_3d_f(0, 1, 0), distance);
+}
+
+void			move_camera_down(float distance)
+{
+	move_camera(t_3d_f(0, -1, 0), distance);
+}

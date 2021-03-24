@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   set_normal_on_camera.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 19:43:10 by skern             #+#    #+#             */
-/*   Updated: 2021/03/24 20:24:56 by skern            ###   ########.fr       */
+/*   Created: 2021/03/24 17:36:12 by skern             #+#    #+#             */
+/*   Updated: 2021/03/24 17:36:49 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#include "camera.h"
 
-# include <math.h>
-# include <stdlib.h>
-# include "object3d.h"
-# include "../light/light.h"
-# include "../t_3d/t_3d.h"
-
-typedef struct	s_sphere_data
+t_3d			set_normal_on_camera(t_3d base_normal, t_3d point_position)
 {
-	t_3d		center;
-	float		radius;
-	int			color;
-}				t_sphere_data;
-
-t_object3d		*new_sphere(t_3d center, float radius, int color);
-
-#endif
+	if (t_3d_dot_product(base_normal,
+							t_3d_difference(g_camera.displacement,
+											point_position)) < 0)
+		return (t_3d_scalar_mul(base_normal, -1));
+	return (base_normal);
+}

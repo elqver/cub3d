@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   check_rt_camera.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 19:43:10 by skern             #+#    #+#             */
-/*   Updated: 2021/03/24 20:24:56 by skern            ###   ########.fr       */
+/*   Created: 2021/03/24 20:11:00 by skern             #+#    #+#             */
+/*   Updated: 2021/03/24 20:13:52 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#include "check_rt.h"
 
-# include <math.h>
-# include <stdlib.h>
-# include "object3d.h"
-# include "../light/light.h"
-# include "../t_3d/t_3d.h"
-
-typedef struct	s_sphere_data
+int			check_camera(char **line)
 {
-	t_3d		center;
-	float		radius;
-	int			color;
-}				t_sphere_data;
-
-t_object3d		*new_sphere(t_3d center, float radius, int color);
-
-#endif
+	g_camera_is_set = 1;
+	printf("check camera: %s\n", *line);
+	if (check_three_numbers(line))
+		if (check_three_numbers(line))
+			if (check_number(line))
+				if (check_empty_end(line))
+					return (1);
+	printf("camera is broken\n");
+	return (0);
+}

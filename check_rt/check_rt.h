@@ -6,10 +6,9 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:59:24 by skern             #+#    #+#             */
-/*   Updated: 2021/03/22 20:14:35 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/24 20:11:50 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CHECK_RT_H
 # define CHECK_RT_H
@@ -27,11 +26,15 @@
 # define CYLINDER 8
 # define TRIANGLE 9
 
+int			g_ambient_is_set;
+int			g_camera_is_set;
+int			g_resolution_is_set;
+
 int			check_rt_file(char *file_name);
 int			check_line(char *line);
-int 		check_number(char **line);	
-int 		check_three_numbers(char **line);
-int 		check_empty_end(char **line);
+int			check_number(char **line);
+int			check_three_numbers(char **line);
+int			check_empty_end(char **line);
 
 int			check_resolution(char **line);
 int			check_ambient(char **line);

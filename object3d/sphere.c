@@ -6,7 +6,7 @@
 /*   By: skern <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 00:58:02 by skern             #+#    #+#             */
-/*   Updated: 2021/03/21 19:50:02 by skern            ###   ########.fr       */
+/*   Updated: 2021/03/22 22:32:57 by skern            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int		get_sphere_intersect(const t_sphere_data *data,
 	float	c[4];
 	float	distance;
 
+	ray_direction = t_3d_unit(ray_direction);
 	c[0] = t_3d_dot_product(ray_direction, ray_direction);
 	c[1] = 2 * (t_3d_dot_product(ray_direction,
 				t_3d_difference(ray_start_point, data->center)));
